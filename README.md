@@ -9,7 +9,7 @@ Note that if you have not already, it is highly suggested you complete [this lea
 * [Visual Studio Code](https://code.visualstudio.com/) - Code editor.
 * [Git](https://git-scm.com/) - Version Control system software.
 * [GitHub Account](https://github.com/) - For hosting & storing your projects.
-* [NodeJS v16 (for npm)](https://nodejs.org/en/download/) - We are using version 16 Node for this project.
+* [NodeJS v16](https://nodejs.org/en/download/) - We are using version 16 Node for this project.
 
 ## Contents:
 
