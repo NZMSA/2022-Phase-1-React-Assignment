@@ -21,6 +21,8 @@ Note that if you have not already, it is highly suggested you complete [this lea
 
 The aim of this assignment is to help challenge you with a real world goal of making a working stopwatch web application. Now that you have accomplished the workshop, you should be able to sharpen a bit of your acquired skillset in this assignment.
 
+You may have noticed that there are `data-testid` properties in some HTML components. Do not change the values of these as the unit test uses these values to identify HTML elements for testing purposes.
+
 ### Recommended Steps to Setup before Starting:
 The steps below assumes knowledge of the Github interface.
 
