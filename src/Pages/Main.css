@@ -1,0 +1,29 @@
+.NameSetting {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 25px;
+}
+
+.NameSetting button {
+    border-radius: 20px;
+}
+
+.NameSetting textarea {
+    height: 1.2em;
+    width: 35ex;
+    resize: none;
+    margin-right: 5px;
+}
+
+.TimerButtons {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.TimerButtons button {
+    margin: 0 5px;
+    width: 50px;
+    border-radius: 10px;
+}
