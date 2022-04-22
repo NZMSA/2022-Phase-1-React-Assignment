@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, { useState } from 'react';
 import './Main.css';
 
 function Main() {
@@ -39,6 +39,11 @@ function Main() {
     setTimerStarted(!timerStarted)
   }
 
+  const resetTimer = () => {
+    setTime(0);
+    setLastSavedTime(0);
+  }
+
   return (
     <div className="MainPage">
       <div className="WelcomeSection">
@@ -55,7 +60,7 @@ function Main() {
       </div>
       <div className="TimerButtons">
         <button data-testid="StartButton" className="StartButton" id="StartButton" onClick={startTimer}>{timerStarted ? "Pause" : "Start"}</button>
-        <button data-testid="ResetButton" className="ResetButton" id="ResetButton" onClick={() => setTime(0)}>Reset</button>
+        <button data-testid="ResetButton" className="ResetButton" id="ResetButton" onClick={resetTimer}>Reset</button>
       </div>
     </div>
   );
