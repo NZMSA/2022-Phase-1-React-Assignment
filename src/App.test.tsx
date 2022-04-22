@@ -89,7 +89,7 @@ describe('Name Setting Functionality.', () => {
 
     const textEntry = screen.getByTestId('NameEntry');
 
-    const entry = generateRandomString(Math.random() * 32);
+    const entry = generateRandomString(Math.random() * 32 || 1);
     userEvent.type(textEntry, entry);
     fireEvent.click(setNameButton);
 
@@ -116,7 +116,7 @@ describe('Name Setting Functionality.', () => {
     const setNameButton = screen.getByTestId('SetNameButton');
     const textEntry = screen.getByTestId('NameEntry');
 
-    const entry = generateRandomString(Math.random() * 32);
+    const entry = generateRandomString(Math.random() * 32 || 1);
     userEvent.type(textEntry, entry);
     fireEvent.click(setNameButton);
 
