@@ -7,19 +7,9 @@ function Main() {
   // States
   const [user, setUser] = useState<string>("User");
   const [time, setTime] = useState<number>(0);
+  const [timer, setTimer] = useState<NodeJS.Timer>(setInterval(()=>{}));
+  const [lastSavedTime, setLastSavedTime] = useState<number>(0);
   const [timerStarted, setTimerStarted] = useState<boolean>(false);
-
-  useEffect(() => {
-    let interval : NodeJS.Timer = setInterval(()=>{});
-    if (timerStarted) {
-      interval = setInterval(() => {
-        setTime((prevTime) => prevTime + 0.01);
-      }, 10);
-    } else if (!timerStarted) {
-      clearInterval(interval);
-    }
-    return () => clearInterval(interval);
-  }, [timerStarted]);
 
   const updateUserName = () => {
     const str = (document.getElementById("NameEntry") as HTMLInputElement).value;
@@ -31,6 +21,21 @@ function Main() {
 
   const startTimer = () => {
     timerStarted ? document.getElementById("ResetButton")?.removeAttribute("Disabled") : document.getElementById("ResetButton")?.setAttribute("Disabled", "true");
+    const _timerStarted = !timerStarted;
+    
+    if (_timerStarted) {
+      const initTime = Date.now();
+      setTime(time);
+      setTimer(
+        setInterval(() => {
+          setTime(lastSavedTime + ((Date.now() - initTime)/1000));
+        }, 10)
+      );
+    } else {
+        clearInterval(timer);
+        setLastSavedTime(time);
+    }
+
     setTimerStarted(!timerStarted)
   }
 
