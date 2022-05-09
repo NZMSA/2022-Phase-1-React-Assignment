@@ -13,7 +13,33 @@ function Main() {
   */
 
   // States
-  const [user, setUser] = useState("User");
+  const [user, setUser] = useState<string>("User");
+  const [time, setTime] = useState<number>(0);
+  const [active, setActive] = useState<boolean>(false);
+
+  useEffect(() => runTime(), [active]);
+
+  function runTime () {
+    let interval: any;
+    const startButton = document.getElementById("StartButton") as HTMLButtonElement;
+    const resetButton = document.getElementById("ResetButton") as HTMLButtonElement;
+    if (active) {
+      resetButton.disabled = true;
+      startButton.textContent = "Pause";
+      interval = setInterval(() => {
+        setTime((prevTime) => prevTime + 1);
+      }, 10);
+    } else {
+      resetButton.disabled = false;
+      startButton.textContent = "Start";
+      clearInterval(interval);
+    }
+    return () => clearInterval(interval);
+  }
+
+  function startPause() {
+    setActive(!active);
+  }
 
   function setName() {
     const name = document.getElementById("NameEntry") as HTMLInputElement;
@@ -37,11 +63,11 @@ function Main() {
       </div>
       <div className="TimerMainFrame">
         <h3>Time in seconds:</h3>
-        <h1 data-testid="TimeInSeconds" className="TimeInSeconds">0.00</h1>
+        <h1 data-testid="TimeInSeconds" className="TimeInSeconds">{Math.floor(time / 100)}.{("0" + (time)).slice(-2)}</h1>
       </div>
       <div className="TimerButtons">
-        <button data-testid="StartButton" className="StartButton">Start</button>
-        <button data-testid="ResetButton" className="ResetButton">Reset</button>
+        <button data-testid="StartButton" className="StartButton" id="StartButton" onClick={() => startPause()}>Start</button>
+        <button data-testid="ResetButton" className="ResetButton" id="ResetButton" onClick={() => setTime(0)}>Reset</button>
       </div>
     </div>
   );

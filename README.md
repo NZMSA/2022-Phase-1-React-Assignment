@@ -55,21 +55,21 @@ Example Set Name Functionality (change from User to Jason):
 ![user-setting](./images/change-user-greet.gif)
 
 For the stopwatch:
-- [ ] The timer string should update in real-time.
-- [ ] Pressing start button should start the timer and disable the reset button.
-- [ ] When the stopwatch is running, the start button should be changed to a pause button.
-- [ ] The reset button should be enabled when the stopwatch is not running.
-- [ ] The reset button should set the timer back to 0.
+- [x] The timer string should update in real-time.
+- [x] Pressing start button should start the timer and disable the reset button.
+- [x] When the stopwatch is running, the start button should be changed to a pause button.
+- [x] The reset button should be enabled when the stopwatch is not running.
+- [x] The reset button should set the timer back to 0.
 
 Example Stopwatch Functionality Showcase:
 
 ![stopwatch-functionality](./images/stopwatch-action.gif)
 
 For the UI:
-- [ ] Start button should have the text `Start`
-- [ ] Pause button should have the text `Pause`
-- [ ] Reset button should have the text `Reset`
-- [ ] The timer value should have at least 2 decimal places.
+- [x] Start button should have the text `Start`
+- [x] Pause button should have the text `Pause`
+- [x] Reset button should have the text `Reset`
+- [x] The timer value should have at least 2 decimal places.
 
 ### Hints:
 * `Date.now()` - can return the timestamp of when the function is called.
