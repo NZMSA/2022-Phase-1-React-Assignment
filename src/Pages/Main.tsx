@@ -27,7 +27,7 @@ function Main() {
       resetButton.disabled = true;
       startButton.textContent = "Pause";
       interval = setInterval(() => {
-        setTime((prevTime) => prevTime + 1);
+        setTime(prevTime => prevTime + 1);
       }, 10);
     } else {
       resetButton.disabled = false;
@@ -38,6 +38,7 @@ function Main() {
   }
 
   function startPause() {
+    setTime(prevTime => prevTime + 10);
     setActive(!active);
   }
 
