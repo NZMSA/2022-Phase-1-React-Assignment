@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import './Main.css';
 
 function Main() {
@@ -15,28 +15,28 @@ function Main() {
   // States
   const [user, setUser] = useState<string>("User");
   const [time, setTime] = useState<number>(0);
+  const [savedTime, setSavedTime] = useState<number>(0);
   const [active, setActive] = useState<boolean>(false);
-
-  useEffect(() => runTime(), [active]);
-
-  function runTime () {
-    let interval: any;
-    const startButton = document.getElementById("StartButton") as HTMLButtonElement;
-    const resetButton = document.getElementById("ResetButton") as HTMLButtonElement;
-    if (active) {
-      resetButton.disabled = true;
-      interval = setInterval(() => {
-        setTime(prevTime => prevTime + 1);
-      }, 10);
-    } else {
-      resetButton.disabled = false;
-      clearInterval(interval);
-    }
-    return () => clearInterval(interval);
-  }
+  const [timerInterval, setTimerInterval] = useState<NodeJS.Timer>(setInterval(()=>{}));
 
   function startPause() {
+    const resetButton = document.getElementById("ResetButton") as HTMLButtonElement;
+    const startTime = Date.now();
+    const started = !active;
+    if (started) {
+      resetButton.disabled = true;
+      setTimerInterval(() => setInterval(() => {setTime(savedTime + (Date.now() - startTime)/1000)}, 10));
+    } else {
+      resetButton.disabled = false;
+      clearInterval(timerInterval);
+      setSavedTime(time);
+    }
     setActive(!active);
+  }
+
+  function reset() {
+    setTime(0);
+    setSavedTime(0);
   }
 
   function setName() {
@@ -61,11 +61,11 @@ function Main() {
       </div>
       <div className="TimerMainFrame">
         <h3>Time in seconds:</h3>
-        <h1 data-testid="TimeInSeconds" className="TimeInSeconds">{Math.floor(time / 100)}.{("0" + (time)).slice(-2)}</h1>
+        <h1 data-testid="TimeInSeconds" className="TimeInSeconds">{time.toFixed(2)}</h1>
       </div>
       <div className="TimerButtons">
         <button data-testid="StartButton" className="StartButton" id="StartButton" onClick={() => startPause()}>{active ? "Pause" : "Start"}</button>
-        <button data-testid="ResetButton" className="ResetButton" id="ResetButton" onClick={() => setTime(0)}>Reset</button>
+        <button data-testid="ResetButton" className="ResetButton" id="ResetButton" onClick={() => reset()}>Reset</button>
       </div>
     </div>
   );
