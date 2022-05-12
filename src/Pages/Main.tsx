@@ -1,16 +1,8 @@
-import React, { useState } from 'react';
+import {useState} from 'react';
 import './Main.css';
 
 function Main() {
-  /*
-    TODO: Implement the functionality in the following components:
-    - NameEntry textarea.
-    - Set Name button.
-    - TimeInSeconds update.
-    - Start button.
-    - Pause button.
-    - Reset button.
-  */
+
 
   // States
   const [user, setUser] = useState<string>("User");
@@ -19,13 +11,14 @@ function Main() {
   const [active, setActive] = useState<boolean>(false);
   const [timerInterval, setTimerInterval] = useState<NodeJS.Timer>(setInterval(()=>{}));
 
+  // Function starts or pauses the timer
   function startPause() {
     const resetButton = document.getElementById("ResetButton") as HTMLButtonElement;
-    const startTime = Date.now();
     const started = !active;
     if (started) {
       resetButton.disabled = true;
-      setTimerInterval(() => setInterval(() => {setTime(savedTime + (Date.now() - startTime)/1000)}, 10));
+      const startTime = Date.now();
+      setTimerInterval(setInterval(() => {setTime(savedTime + (Date.now() - startTime)/1000)}, 10));
     } else {
       resetButton.disabled = false;
       clearInterval(timerInterval);
@@ -34,11 +27,13 @@ function Main() {
     setActive(!active);
   }
 
+  // Function resets the timer
   function reset() {
     setTime(0);
     setSavedTime(0);
   }
 
+  // Changes the name of the user
   function setName() {
     const name = document.getElementById("NameEntry") as HTMLInputElement;
     if (name.value.length > 0) {
