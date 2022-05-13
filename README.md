@@ -45,31 +45,31 @@ Your browser should automatically open and your web application shown in a new t
 Implement the functionality of the application. The user interface code is located in `/src/Pages/Main.tsx`. Your job is to ensure that in the implementation:
 
 For setting name:
-- [ ] You can set a name between 1 to 32 characters.
-- [ ] The entry box prevents users from entering more than 32 characters.
-- [ ] Entry box should clear after the name has been set.
-- [ ] The `Set Name` button should change the greeter to greet user with the name set. See example below for required user greeting format.
+- [x] You can set a name between 1 to 32 characters.
+- [x] The entry box prevents users from entering more than 32 characters.
+- [x] Entry box should clear after the name has been set.
+- [x] The `Set Name` button should change the greeter to greet user with the name set. See example below for required user greeting format.
 
 Example Set Name Functionality (change from User to Jason):
 
 ![user-setting](./images/change-user-greet.gif)
 
 For the stopwatch:
-- [ ] The timer string should update in real-time.
-- [ ] Pressing start button should start the timer and disable the reset button.
-- [ ] When the stopwatch is running, the start button should be changed to a pause button.
-- [ ] The reset button should be enabled when the stopwatch is not running.
-- [ ] The reset button should set the timer back to 0.
+- [x] The timer string should update in real-time.
+- [x] Pressing start button should start the timer and disable the reset button.
+- [x] When the stopwatch is running, the start button should be changed to a pause button.
+- [x] The reset button should be enabled when the stopwatch is not running.
+- [x] The reset button should set the timer back to 0.
 
 Example Stopwatch Functionality Showcase:
 
 ![stopwatch-functionality](./images/stopwatch-action.gif)
 
 For the UI:
-- [ ] Start button should have the text `Start`
-- [ ] Pause button should have the text `Pause`
-- [ ] Reset button should have the text `Reset`
-- [ ] The timer value should have at least 2 decimal places.
+- [x] Start button should have the text `Start`
+- [x] Pause button should have the text `Pause`
+- [x] Reset button should have the text `Reset`
+- [x] The timer value should have at least 2 decimal places.
 
 ### Hints:
 * `Date.now()` - can return the timestamp of when the function is called.
