@@ -43,8 +43,7 @@ function Main() {
     if (!started) {
       setTimer(
         setInterval(() => {
-          const newTime: number = pausedTime + (Date.now() - initialTime) / 1000;
-          setTime(newTime);
+          setTime(pausedTime + (Date.now() - initialTime) / 1000);
         }, 10)
       )
     } else {
