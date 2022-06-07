@@ -14,15 +14,47 @@ function Main() {
 
   document.title = "Stopwatch"
 
-  // NameEntry
+  // NameEntry State
   const [name, setName] = useState("User")
 
+  // method to update the name
   const updateUserName = () => {
     const newUserName = (document.getElementById("NameEntry") as HTMLTextAreaElement).value
+    // the length of the string must not be null and must be at least 1 character long
     if (newUserName.length > 0 && newUserName !== null) {
       setName(newUserName);
       (document.getElementById("NameEntry") as HTMLTextAreaElement).value = "";
     }
+  }
+
+  // timer state
+  const initialTime = 0;
+  const [time, setTime] = useState(initialTime)
+  const [started, setStarted] = useState(false)
+  const [timer, setTimer] = useState<NodeJS.Timer>(setInterval(() => { }));
+  const [pausedTime, setPausedTime] = useState(0);
+
+  const startTimer = () => {
+    // if the timer started, pause and vice versa
+    setStarted(!started)
+
+    // if the timer started, the time should increase every 10ms.
+    const initialTime = Date.now();
+    if (!started) {
+      setTimer(
+        setInterval(() => {
+          const newTime: number = pausedTime + (Date.now() - initialTime) / 1000;
+          setTime(newTime);
+        }, 10)
+      )
+    } else {
+      clearInterval(timer)
+      setPausedTime(time)
+    }
+  }
+
+  const resetTimer = () => {
+    setTime(0);
   }
 
   return (
@@ -37,11 +69,11 @@ function Main() {
       </div>
       <div className="TimerMainFrame">
         <h3>Time in seconds:</h3>
-        <h1 data-testid="TimeInSeconds" className="TimeInSeconds">0.00</h1>
+        <h1 data-testid="TimeInSeconds" className="TimeInSeconds">{time.toFixed(2)}</h1>
       </div>
       <div className="TimerButtons">
-        <button data-testid="StartButton" className="StartButton">Start</button>
-        <button data-testid="ResetButton" className="ResetButton">Reset</button>
+        <button data-testid="StartButton" className="StartButton" onClick={startTimer}>{started ? "Pause" : "Start"}</button>
+        <button data-testid="ResetButton" className="ResetButton" onClick={resetTimer}>Reset</button>
       </div>
     </div>
   );
