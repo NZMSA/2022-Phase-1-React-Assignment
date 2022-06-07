@@ -40,6 +40,7 @@ function Main() {
 
     // if the timer started, the time should increase every 10ms.
     const initialTime = Date.now();
+    started ? document.getElementById("ResetButton")?.removeAttribute("disabled") : document.getElementById("ResetButton")?.setAttribute("disabled", "true");
     if (!started) {
       setTimer(
         setInterval(() => {
@@ -73,7 +74,7 @@ function Main() {
       </div>
       <div className="TimerButtons">
         <button data-testid="StartButton" className="StartButton" onClick={startTimer}>{started ? "Pause" : "Start"}</button>
-        <button data-testid="ResetButton" className="ResetButton" onClick={resetTimer}>Reset</button>
+        <button data-testid="ResetButton" className="ResetButton" id="ResetButton" onClick={resetTimer}>Reset</button>
       </div>
     </div>
   );
