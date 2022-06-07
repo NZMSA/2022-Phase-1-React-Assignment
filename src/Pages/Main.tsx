@@ -53,7 +53,8 @@ function Main() {
   }
 
   const resetTimer = () => {
-    setTime(0);
+    setTime(0)
+    setPausedTime(0)
   }
 
   return (
