@@ -45,10 +45,10 @@ Your browser should automatically open and your web application shown in a new t
 Implement the functionality of the application. The user interface code is located in `/src/Pages/Main.tsx`. Your job is to ensure that in the implementation:
 
 For setting name:
-- [ ] You can set a name between 1 to 32 characters.
-- [ ] The entry box prevents users from entering more than 32 characters.
-- [ ] Entry box should clear after the name has been set.
-- [ ] The `Set Name` button should change the greeter to greet user with the name set. See example below for required user greeting format.
+- [x] You can set a name between 1 to 32 characters.
+- [x] The entry box prevents users from entering more than 32 characters.
+- [x] Entry box should clear after the name has been set.
+- [x] The `Set Name` button should change the greeter to greet user with the name set. See example below for required user greeting format.
 
 Example Set Name Functionality (change from User to Jason):
 
