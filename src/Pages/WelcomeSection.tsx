@@ -11,7 +11,7 @@ function WelcomeSection() {
     return (
         <div className="WelcomeSection">
             <h1>Stopwatch Application.</h1>
-            <NameSetting/>
+            <NameSetting submitName={submitName}/>
             <h2 data-testid="WelcomeBanner" className="WelcomeBanner">Welcome {name}!</h2>
       </div>
     )
