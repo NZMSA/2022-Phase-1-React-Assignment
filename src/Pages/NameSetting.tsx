@@ -1,10 +1,16 @@
-import React, {useState} from 'react';
+import React, {useState, ChangeEvent, SyntheticEvent} from 'react';
 
 function NameSetting(props: {submitName: (a: string) => void}) {
     const [value, setValue] = useState('');
 
-    function handleChange(event) {
+    function handleChange(event: ChangeEvent<HTMLTextAreaElement>) {
         setValue(event.target.value.slice(0, 32));        
+    }
+    function handleSubmit() {
+        if (value !== '') {
+            props.submitName(value);
+        }
+        setValue('');
     }
     
     return (
@@ -17,7 +23,7 @@ function NameSetting(props: {submitName: (a: string) => void}) {
             />
             <button data-testid="SetNameButton" 
                 className="SetNameButton" 
-                onClick={() => props.submitName(value)}
+                onClick={handleSubmit}
             >
                 Set Name
             </button>
