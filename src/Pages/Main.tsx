@@ -1,5 +1,8 @@
-import React from 'react';
+import React, {useState} from 'react';
 import './Main.css';
+import WelcomeSection from './WelcomeSection';
+import TimerMainFrame from './TimerMainFrame';
+import TimerButtons from './TimerButtons';
 
 function Main() {
   /*
@@ -14,24 +17,45 @@ function Main() {
 
   document.title = "Stopwatch"
 
+  const [timerRunning, setTimerRunning] = useState(false);
+  const [timerCount, setTimerCount] = useState(0);
+  const [pauseCount, setPauseCount] = useState(0);
+  const [initialTime, setInitialTime] = useState(Date.now())
+
+  function clickStart() {
+    if (timerCount == 0) {
+      setInitialTime(Date.now())
+    }
+    setTimerRunning(!timerRunning);
+  }
+
+  function clickReset() {
+    setTimerCount(0);
+    setPauseCount(0);
+  }
+
+  if (timerRunning) {
+    setTimeout(() => {
+      let totalElapsed = (Date.now() - initialTime) / 1000;
+      setTimerCount(totalElapsed - pauseCount);
+    });
+  }
+  if (!timerRunning && timerCount > 0) {
+    setTimeout(() => {
+      let totalElapsed = (Date.now() - initialTime) / 1000;
+      setPauseCount(totalElapsed - timerCount);
+    });
+  }
+
   return (
     <div className="MainPage">
-      <div className="WelcomeSection">
-        <h1>Stopwatch Application.</h1>
-        <div className="NameSetting">
-          <textarea data-testid="NameEntry" className="NameEntry" placeholder="Insert a name you want to use!"/>
-          <button data-testid="SetNameButton" className="SetNameButton">Set Name</button>
-        </div>
-        <h2 data-testid="WelcomeBanner" className="WelcomeBanner">Welcome User!</h2>
-      </div>
-      <div className="TimerMainFrame">
-        <h3>Time in seconds:</h3>
-        <h1 data-testid="TimeInSeconds" className="TimeInSeconds">0.00</h1>
-      </div>
-      <div className="TimerButtons">
-        <button data-testid="StartButton" className="StartButton">Start</button>
-        <button data-testid="ResetButton" className="ResetButton">Reset</button>
-      </div>
+      <WelcomeSection/>
+      <TimerMainFrame time={timerCount}/>
+      <TimerButtons 
+        clickStart={clickStart} 
+        clickReset={clickReset} 
+        timerRunning={timerRunning} 
+      />
     </div>
   );
 }
