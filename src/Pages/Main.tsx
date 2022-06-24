@@ -19,19 +19,32 @@ function Main() {
 
   const [timerRunning, setTimerRunning] = useState(false);
   const [timerCount, setTimerCount] = useState(0);
+  const [pauseCount, setPauseCount] = useState(0);
+  const [initialTime, setInitialTime] = useState(Date.now())
 
   function clickStart() {
+    if (timerCount == 0) {
+      setInitialTime(Date.now())
+    }
     setTimerRunning(!timerRunning);
   }
 
   function clickReset() {
     setTimerCount(0);
+    setPauseCount(0);
   }
 
   if (timerRunning) {
     setTimeout(() => {
-      setTimerCount(timerCount + 0.01);
-    }, 10);
+      let totalElapsed = (Date.now() - initialTime) / 1000;
+      setTimerCount(totalElapsed - pauseCount);
+    });
+  }
+  if (!timerRunning && timerCount > 0) {
+    setTimeout(() => {
+      let totalElapsed = (Date.now() - initialTime) / 1000;
+      setPauseCount(totalElapsed - timerCount);
+    });
   }
 
   return (
