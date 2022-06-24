@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import NameSetting from './NameSetting.js';
+import NameSetting from './NameSetting';
 
 function WelcomeSection() {
     const [ name, setName ] = useState('User');

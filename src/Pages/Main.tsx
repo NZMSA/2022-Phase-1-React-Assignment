@@ -1,8 +1,8 @@
-import React from 'react';
+import React, {useState} from 'react';
 import './Main.css';
-import WelcomeSection from './WelcomeSection.js';
-import TimerMainFrame from './TimerMainFrame.js';
-import TimerButtons from './TimerButtons.js';
+import WelcomeSection from './WelcomeSection';
+import TimerMainFrame from './TimerMainFrame';
+import TimerButtons from './TimerButtons';
 
 function Main() {
   /*
@@ -17,11 +17,42 @@ function Main() {
 
   document.title = "Stopwatch"
 
+  const [timerRunning, setTimerRunning] = useState(false);
+  const [timerCount, setTimerCount] = useState(0);
+  const [initialTime, setInitialTime] = useState(Date.now());
+  let int = setInterval(updateTime, 10);
+  clearInterval(int);
+
+  function updateTime() {
+    if (timerRunning) {
+      let dt: number = Date.now() - initialTime;
+      setTimerCount(timerCount + dt/1000);
+    }
+  }
+
+  function clickStart() {
+    if (timerRunning) {
+      clearInterval(int);
+    } else {
+      setInitialTime(Date.now())
+      int = setInterval(updateTime, 10)
+    }
+    setTimerRunning(!timerRunning);
+  }
+
+  function clickReset() {
+    setTimerCount(0);
+  }
+
   return (
     <div className="MainPage">
       <WelcomeSection />
-      <TimerMainFrame />
-      <TimerButtons />
+      <TimerMainFrame time={timerCount}/>
+      <TimerButtons 
+        clickStart={clickStart} 
+        clickReset={clickReset} 
+        timerRunning={timerRunning} 
+      />
     </div>
   );
 }
