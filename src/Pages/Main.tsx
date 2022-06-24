@@ -19,24 +19,8 @@ function Main() {
 
   const [timerRunning, setTimerRunning] = useState(false);
   const [timerCount, setTimerCount] = useState(0);
-  const [initialTime, setInitialTime] = useState(Date.now());
-  let int = setInterval(updateTime, 10);
-  clearInterval(int);
-
-  function updateTime() {
-    if (timerRunning) {
-      let dt: number = Date.now() - initialTime;
-      setTimerCount(timerCount + dt/1000);
-    }
-  }
 
   function clickStart() {
-    if (timerRunning) {
-      clearInterval(int);
-    } else {
-      setInitialTime(Date.now())
-      int = setInterval(updateTime, 10)
-    }
     setTimerRunning(!timerRunning);
   }
 
@@ -44,9 +28,15 @@ function Main() {
     setTimerCount(0);
   }
 
+  if (timerRunning) {
+    setTimeout(() => {
+      setTimerCount(timerCount + 0.01);
+    }, 10);
+  }
+
   return (
     <div className="MainPage">
-      <WelcomeSection />
+      <WelcomeSection/>
       <TimerMainFrame time={timerCount}/>
       <TimerButtons 
         clickStart={clickStart} 

@@ -8,7 +8,7 @@ function TimerButtons(props: {clickStart: (a: void) => void, clickReset: (a: voi
                 className="StartButton" 
                 onClick={ () => props.clickStart() }
             >
-                { props.timerRunning ? 'Pause' : 'Start' }
+                {props.timerRunning ? 'Pause': 'Start'}
             </button>
             <button 
                 data-testid="ResetButton" 
