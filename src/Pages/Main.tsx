@@ -13,57 +13,53 @@ function Main() {
   */
 
   document.title = "Stopwatch"
-  const [nameValue, setNameValue] = useState<string>("");
-  const [nameDone, setNameDone] = useState<string>("User");
-  const [seconds, setSeconds] = useState(0.00);
+  const [nameValue, setNameValue] = useState<string>("User");
+  const [seconds, setSeconds] = useState(0);
   const [isActive, setIsActive] = useState(false);
+  const [start, setStart] = useState(Date.now());
+  const [count, setCount] = useState(0);
 
-  const buttonHandler = (event: React.MouseEvent<HTMLButtonElement>) => {
-    event.preventDefault();
-    nameValue.length > 0 ? setNameDone(nameValue) : null;
-    setNameValue('')
+  const buttonHandler = () => {
+    const name = document.getElementById("NameEntry") as HTMLInputElement;
+    if (name.value.length > 0) {
+      setNameValue(name.value);
+      name.value = "";
+    }
   };
 
   function toggle() {
     setIsActive(!isActive);
-  }
-
-  function reset() {
-    setSeconds(0.00);
-    setIsActive(false);
+    if (!isActive) {
+      setStart(Date.now())
+    } else {
+      setCount(seconds)
+    }
   }
 
   useEffect(() => {
     if (isActive) {
-      setTimeout(() => {setSeconds(seconds + 0.01)}, 10)
+      setTimeout(() => {setSeconds((count + ((Date.now() - start))/1000))}, 10)
     }
   })
 
-  // useEffect(() => {
-  //   let interval: number;
-  //   if (isActive) {
-  //     interval = window.setInterval(() => {
-  //       setSeconds(seconds => seconds + 0.01);
-  //     }, 10);
-  //   } 
-  //   return () => clearInterval(interval);
-  // }, [isActive, seconds]);
+  function reset() {
+    setSeconds(0);
+    setCount(0);
+    setIsActive(false);
+  }
 
   return (
     <div className="MainPage">
       <div className="WelcomeSection">
         <h1>Stopwatch Application.</h1>
         <div className="NameSetting">
-          <textarea data-testid="NameEntry" className="NameEntry" placeholder="Insert a name you want to use!"
-            value={nameValue}
+          <textarea data-testid="NameEntry" id="NameEntry" className="NameEntry" 
+            placeholder="Insert a name you want to use!"
             maxLength={32}
-            onChange={(
-                ev: React.ChangeEvent<HTMLTextAreaElement>,
-            ): void => setNameValue(ev.target.value)}
           />
           <button data-testid="SetNameButton" className="SetNameButton" onClick={buttonHandler}>Set Name</button>
         </div>
-        <h2 data-testid="WelcomeBanner" className="WelcomeBanner">Welcome {nameDone}!</h2>
+        <h2 data-testid="WelcomeBanner" className="WelcomeBanner">Welcome {nameValue}!</h2>
       </div>
       <div className="TimerMainFrame">
         <h3>Time in seconds:</h3>
